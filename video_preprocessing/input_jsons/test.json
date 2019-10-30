@@ -4,6 +4,11 @@
         "sample_videos/TextInMotion-VideoSample-720p.mp4"
     ],
     "output_bitrate": "400k",
-    "output_name": "processed_video.mp4",
-    "to_black_white": true
+    "output_name": "/mnt/c/Users/Rory/Desktop/processed_video.mp4",
+    "to_black_white": true,
+    "output_fps": 15,
+    "contrast_luminosity": {
+        "contrast": 1,
+        "lum": 5
+    }
 }

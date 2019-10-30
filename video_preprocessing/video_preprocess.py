@@ -5,6 +5,8 @@ Takes one or more input .json file containing the following fields:
     - output_bitrate: The bitrate of the output video file. 
         	          This corresponds to the quality of the output video
     - to_black_white: Boolean of whether to convert to black and white or not
+    - output_fps: fps of the output video 
+    - contrast_luminosity: an associative array of contrast and luminosity valus for adjustment
 
 It compresses, concatenates and saves the resulting video.
 
@@ -39,7 +41,14 @@ def json_to_dict(file_path):
     return output
 
 
-def main(videos, output_name="output.mp4", output_bitrate="500k", to_black_white=True):
+def main(
+    videos,
+    output_name="output.mp4",
+    output_bitrate="500k",
+    to_black_white=True,
+    output_fps=30,
+    contrast_luminosity=None,
+):
     """
     Takes a list of video paths. It compresses them to a specified bitrate
     and concatenates them together and saving them to a file
@@ -50,14 +59,22 @@ def main(videos, output_name="output.mp4", output_bitrate="500k", to_black_white
         - output_bitrate: The bitrate of the output video file. 
                           This corresponds to the quality of the output video 
         - to_black_white: Boolean of whether to convert to black and white or not
+        - output_fps: fps of the output video 
+        - contrast_luminosity: a dict of contrast and luminosity valus for adjustment
     """
     videos = list(map(lambda x: mp.VideoFileClip(x), videos))
-    concattenated_video = mp.concatenate_videoclips(videos)
+    output_video = mp.concatenate_videoclips(videos)
 
     if to_black_white:
-        concattenated_video = concattenated_video.fx(vfx.blackwhite)
+        output_video = output_video.fx(vfx.blackwhite)
+    if contrast_luminosity is not None:
+        output_video = output_video.fx(
+            vfx.lum_contrast,
+            contrast=contrast_luminosity["contrast"],
+            lum=contrast_luminosity["lum"],
+        )
 
-        concattenated_video.write_videofile(output_name, bitrate=output_bitrate)
+    output_video.write_videofile(output_name, bitrate=output_bitrate, fps=output_fps)
 
 
 if __name__ == "__main__":
