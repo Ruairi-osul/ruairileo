@@ -1,0 +1,8 @@
+{
+    "videos": [
+        "sample_videos/TextInMotion-VideoSample-720p (1).mp4",
+        "sample_videos/TextInMotion-VideoSample-720p.mp4"
+    ],
+    "output_bitrate": "400k",
+    "output_name": "processed_video.mp4"
+}
