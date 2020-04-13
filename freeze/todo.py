@@ -23,3 +23,13 @@ class FreezeProcessor:
         """
         # your code here
         pass
+
+
+if __name__ == "__main__":
+    # write code here to test your class is doing what you expect
+    # for example to test the process_data method
+
+    VIDEO_PATH = "videos/my_video.avi"
+    processor = FreezeProcessor()
+    events = processor.process_data(VIDEO_PATH)
+    print(events)
